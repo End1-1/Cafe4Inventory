@@ -10,10 +10,20 @@ const jsonIntlDelegate = JsonIntlDelegate(
 
 /// Internationalization constants
 mixin IntlKeys {
+  /// en: 'Date'
+  /// hy: *** NOT TRANSLATED ***
+  /// ru: *** NOT TRANSLATED ***
+  static const date = #date;
+
   /// en: 'Enter pin code'
   /// hy: *** NOT TRANSLATED ***
   /// ru: *** NOT TRANSLATED ***
   static const enterpincode = #enterPinCode;
+
+  /// en: 'Storage'
+  /// hy: *** NOT TRANSLATED ***
+  /// ru: *** NOT TRANSLATED ***
+  static const storage = #storage;
 }
 
 /// Default Locale
