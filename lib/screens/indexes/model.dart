@@ -11,5 +11,6 @@ class DlgIndexModel {
       streamController.add(result[HttpQuery.kData].toString());
       return;
     }
+    streamController.add(result);
   }
 }

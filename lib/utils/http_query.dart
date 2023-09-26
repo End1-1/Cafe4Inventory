@@ -16,6 +16,9 @@ class HttpQuery {
   static const kData = 'kData';
 
   static const rListCafe = 1;
+  static const rListStore = 2;
+  static const rGetBaseItems = 3;
+  static const rAmtStorageList = 4;
 
   Future<Map<String, dynamic>> request(Map<String, Object?> inData) async {
     Map<String, Object?> outData = {};

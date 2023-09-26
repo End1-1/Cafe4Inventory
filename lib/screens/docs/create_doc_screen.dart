@@ -1,6 +1,10 @@
 import 'package:cafe4_inventory/screens/indexes/dlg_index.dart';
+import 'package:cafe4_inventory/structs/struct_cafe.dart';
+import 'package:cafe4_inventory/structs/struct_storage.dart';
+import 'package:cafe4_inventory/utils/http_query.dart';
 import 'package:cafe4_inventory/utils/squre_button.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:json_intl/json_intl.dart';
@@ -13,7 +17,10 @@ class CreateDocScreen extends StatefulWidget {
 class _CreateDocScreen extends State<CreateDocScreen> {
   var dateTime = DateTime.now();
   final dateController = TextEditingController();
+  final cafeController = TextEditingController();
   final storeController = TextEditingController();
+  StructCafe? cafe;
+  StructStorage? storage;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +94,34 @@ class _CreateDocScreen extends State<CreateDocScreen> {
           const Divider(),
           Row(
             children: [
+              Text(context.tr(#cafe)),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                  child: TextField(
+                    controller: cafeController,
+                    readOnly: true,
+                  )),
+              const SizedBox(width: 10),
+              squareImageButton(
+                    () {
+                  DlgIndex().getData(context, context.tr(#cafe), HttpQuery.rListCafe).then((value) {
+                    if (value != null) {
+                      cafe = value;
+                      cafeController.text = cafe!.name;
+                    }
+                  });
+                },
+                'assets/icons/edit.png',
+                height: 30,
+              )
+            ],
+          ),
+          const Divider(),
+          Row(
+            children: [
               Text(context.tr(#storage)),
             ],
           ),
@@ -100,9 +135,13 @@ class _CreateDocScreen extends State<CreateDocScreen> {
               const SizedBox(width: 10),
               squareImageButton(
                 () {
+                  DlgIndex().getData(context, context.tr(#storage), HttpQuery.rListStore).then((value) {
+    if (value != null) {
+      storage = value;
+      storeController.text = storage!.name;
+    }
 
-                  DlgIndex().getData(context, 'title', 1);
-
+                  });
                 },
                 'assets/icons/edit.png',
                 height: 30,

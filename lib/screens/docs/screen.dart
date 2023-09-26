@@ -1,4 +1,5 @@
 import 'package:cafe4_inventory/screens/app/app_screen.dart';
+import 'package:cafe4_inventory/screens/base_items/screen.dart';
 import 'package:cafe4_inventory/screens/config/screen.dart';
 import 'package:cafe4_inventory/screens/docs/create_doc_screen.dart';
 import 'package:cafe4_inventory/screens/docs/pin_form.dart';
@@ -35,6 +36,31 @@ class DocsScreen extends AppScreen {
           },
           child: Image.asset('assets/icons/config.png', height: 40)),
       Expanded(child: Container()),
+      InkWell(onTap:(){
+        showDialog(context: context, builder: (builder) {
+          return SimpleDialog(
+            title: Text('ArmSoft', textAlign: TextAlign.center,),
+            children: [
+              Container(margin: const EdgeInsets.all(5), child: InkWell(onTap: (){
+                Navigator.pop(context, 1);
+              }, child: Text('Հիմնական միջոցներ', textAlign: TextAlign.center,))),
+              Container(margin: const EdgeInsets.all(5), child: InkWell(onTap: (){
+                Navigator.pop(context, 2);
+              }, child: Text('Պահեստներ', textAlign: TextAlign.center,))),
+            ],
+          );
+        }).then((value) {
+          switch (value ?? 0) {
+              case 0: return;
+            case 1:
+              Navigator.push(context, MaterialPageRoute(builder: (builder) => BaseItemsScreen()));
+              break;
+            case 2:
+              break;
+          }
+        });
+      }, child: Image.asset('assets/icons/as.png', height: 40)),
+      const SizedBox(width: 10),
       InkWell(
           onTap: () {
             showDialog(context: context, builder: (builder) {
