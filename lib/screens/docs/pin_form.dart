@@ -1,4 +1,3 @@
-import 'package:cafe4_inventory/screens/config/screen.dart';
 import 'package:cafe4_inventory/utils/squre_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
