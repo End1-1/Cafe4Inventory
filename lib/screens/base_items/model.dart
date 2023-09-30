@@ -2,11 +2,13 @@ import 'package:cafe4_inventory/screens/app/model.dart';
 import 'package:cafe4_inventory/structs/struct_amt_storage.dart';
 import 'package:cafe4_inventory/structs/struct_base_item.dart';
 import 'package:cafe4_inventory/utils/http_query.dart';
+import 'package:cafe4_inventory/utils/prefs.dart';
 
 class BaseItemsModel extends AppModel {
 
   final List<StructBaseItem> items = [];
   StructAmtStorage? store;
+  String itemQr = '';
 
   void filter (String s) {
     final List<StructBaseItem> l = [];
@@ -28,14 +30,7 @@ class BaseItemsModel extends AppModel {
 
   @override
   Future<void> init() async{
-    HttpQuery().request({"request": HttpQuery.rAmtStorageList}).then((value) {
-      if (value[HttpQuery.kStatus] != HttpQuery.hrOk) {
-        return;
-      }
-      for (final e in value[HttpQuery.kData]) {
 
-      }
-    });
   }
 
   @override
@@ -50,9 +45,9 @@ class BaseItemsModel extends AppModel {
 
   @override
   void refresh() {
-    if (store == null) {
+    if (store == null && itemQr.isEmpty) {
       return;
     }
-    request(HttpQuery.rGetBaseItems, {'store': store!.id.trim()});
+    request(HttpQuery.rGetBaseItems, {'workerDb': prefs.fbDb(), 'store': store == null ? '' : store!.id.trim(), 'item': itemQr});
   }
 }

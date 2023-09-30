@@ -1,6 +1,8 @@
 import 'package:cafe4_inventory/screens/indexes/model.dart';
 import 'package:cafe4_inventory/structs/struct_amt_storage.dart';
+import 'package:cafe4_inventory/structs/struct_as_storage.dart';
 import 'package:cafe4_inventory/structs/struct_cafe.dart';
+import 'package:cafe4_inventory/structs/struct_goods.dart';
 import 'package:cafe4_inventory/structs/struct_storage.dart';
 import 'package:cafe4_inventory/utils/http_query.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +11,9 @@ class DlgIndex {
   final model = DlgIndexModel();
   static const nameStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
 
-  Future<dynamic?> getData(BuildContext context, String title, int request) async {
-    model.request(request);
+  Future<dynamic> getData(
+      BuildContext context, String title, int request) async {
+    model.request(request, '');
     return await showDialog(
         context: context,
         builder: (builder) {
@@ -23,39 +26,52 @@ class DlgIndex {
                     children: [
                       Row(
                         children: [
-                          Expanded(child: Container(child: Text(title, textAlign: TextAlign.center,)))
+                          Expanded(
+                              child: Container(
+                                  child: Text(
+                            title,
+                            textAlign: TextAlign.center,
+                          )))
                         ],
                       ),
                       Divider(),
-                      StreamBuilder(
-                          stream: model.streamController.stream,
-                          builder: (builder, snapshot) {
-                            if (snapshot.data == null) {
-                              return const Expanded(
-                                  child: Align(
-                                alignment: Alignment.center,
-                                child: SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: CircularProgressIndicator()),
-                              ));
-                            }
-                            if(snapshot.data is String) {
-                              return Expanded(
-                                  child: Align(
+                      Row(
+                        children: [
+                          Expanded(child: TextFormField(
+                            onChanged: (s) {
+
+                            },
+                          ))
+                        ],
+                      ),
+                      const SizedBox(height: 5,),
+                      Expanded(
+                          child: StreamBuilder(
+                              stream: model.streamController.stream,
+                              builder: (builder, snapshot) {
+                                if (snapshot.data == null) {
+                                  return const Align(
+                                    alignment: Alignment.center,
+                                    child: SizedBox(
+                                        height: 30,
+                                        width: 30,
+                                        child: CircularProgressIndicator()),
+                                  );
+                                }
+                                if (snapshot.data is String) {
+                                  return Align(
                                     alignment: Alignment.center,
                                     child: Text(snapshot.data!),
-                                  ));
-                            }
-                            return Expanded(
-                                child: SingleChildScrollView(
-                              child: Column(
-                                children:
-                                  list(context, snapshot.data[HttpQuery.kData], request)
-
-                              ),
-                            ));
-                          })
+                                  );
+                                }
+                                return SingleChildScrollView(
+                                  child: Column(
+                                      children: list(
+                                          context,
+                                          snapshot.data[HttpQuery.kData],
+                                          request)),
+                                );
+                              })),
                     ],
                   ))
             ],
@@ -71,6 +87,10 @@ class DlgIndex {
         return listOfStorage(context, data as List<dynamic>);
       case HttpQuery.rAmtStorageList:
         return listOfAmtStorage(context, data as List<dynamic>);
+      case HttpQuery.rAsStorageList:
+        return listOfAsStorage(context, data as List<dynamic>);
+      case HttpQuery.rGetGoodsNames:
+        return listOfGoodsNames(context, data as List<dynamic>);
     }
     return [];
   }
@@ -79,11 +99,20 @@ class DlgIndex {
     final List<Widget> lw = [];
     for (final e in l) {
       StructCafe sc = StructCafe.fromJson(e);
-      lw.add(Row(children: [
-        InkWell(onTap: (){
-          Navigator.pop(context, sc);
-        }, child: Expanded(child: Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), child: Text(sc.name, style: nameStyle),),))
-      ],));
+      lw.add(Row(
+        children: [
+          Expanded(
+              child: InkWell(
+            onTap: () {
+              Navigator.pop(context, sc);
+            },
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
+              child: Text(sc.name, style: nameStyle),
+            ),
+          ))
+        ],
+      ));
     }
     return lw;
   }
@@ -92,11 +121,20 @@ class DlgIndex {
     final List<Widget> lw = [];
     for (final e in l) {
       StructStorage ss = StructStorage.fromJson(e);
-      lw.add(Row(children: [
-        InkWell(onTap: (){
-          Navigator.pop(context, ss);
-        }, child: Expanded(child: Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), child: Text(ss.name, style: nameStyle),),))
-      ],));
+      lw.add(Row(
+        children: [
+          Expanded(
+              child: InkWell(
+            onTap: () {
+              Navigator.pop(context, ss);
+            },
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
+              child: Text(ss.name, style: nameStyle),
+            ),
+          ))
+        ],
+      ));
     }
     return lw;
   }
@@ -105,11 +143,73 @@ class DlgIndex {
     final List<Widget> lw = [];
     for (final e in l) {
       StructAmtStorage ss = StructAmtStorage.fromJson(e);
-      lw.add(Row(children: [
-        InkWell(onTap: (){
-          Navigator.pop(context, ss);
-        }, child: Expanded(child: Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), child: Text(ss.name, style: nameStyle, overflow: TextOverflow.ellipsis,)),))
-      ],));
+      lw.add(Row(
+        children: [
+          Expanded(
+              child: InkWell(
+            onTap: () {
+              Navigator.pop(context, ss);
+            },
+            child: Container(
+                margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
+                child: Text(
+                  ss.name,
+                  style: nameStyle,
+                  overflow: TextOverflow.ellipsis,
+                )),
+          ))
+        ],
+      ));
+    }
+    return lw;
+  }
+
+  List<Widget> listOfAsStorage(BuildContext context, List<dynamic> l) {
+    final List<Widget> lw = [];
+    for (final e in l) {
+      StructAsStorage ss = StructAsStorage.fromJson(e);
+      lw.add(Row(
+        children: [
+          Expanded(
+              child: InkWell(
+            onTap: () {
+              Navigator.pop(context, ss);
+            },
+            child: Container(
+                margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
+                child: Text(
+                  ss.name,
+                  style: nameStyle,
+                  overflow: TextOverflow.ellipsis,
+                )),
+          ))
+        ],
+      ));
+    }
+    return lw;
+  }
+
+  List<Widget> listOfGoodsNames(BuildContext context, List<dynamic> l) {
+    final List<Widget> lw = [];
+    for (final e in l) {
+      StructGoods ss = StructGoods.fromJson(e);
+      lw.add(Row(
+        children: [
+          Expanded(
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context, ss);
+                },
+                child: Container(
+                    margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
+                    child: Text(
+                      ss.name,
+                      style: nameStyle,
+                      overflow: TextOverflow.ellipsis,
+                    )),
+              ))
+        ],
+      ));
     }
     return lw;
   }

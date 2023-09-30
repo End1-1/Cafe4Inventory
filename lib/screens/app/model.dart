@@ -31,7 +31,7 @@ class AppModel {
     controller.add(data);
   }
 
-  Future<dynamic?> request(int request, Map<String, dynamic> data) async {
+  Future<dynamic> request(int request, Map<String, dynamic> data) async {
     controller.add(HttpLoading());
     final result = await HttpQuery().request({'request': request}..addAll(data));
     if (result[HttpQuery.kStatus] != HttpQuery.hrOk) {

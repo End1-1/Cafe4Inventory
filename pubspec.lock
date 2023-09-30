@@ -246,7 +246,7 @@ packages:
     source: hosted
     version: "2.4.2"
   freezed_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: freezed_annotation
       sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
@@ -326,29 +326,13 @@ packages:
     source: hosted
     version: "0.6.7"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
-  json_intl:
-    dependency: "direct main"
-    description:
-      name: json_intl
-      sha256: "8dc980fadee6f2ee31502e9d2d1ae2d25b8c882fefcf9949c1a901229505e6b2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.1"
-  json_intl_gen:
-    dependency: "direct main"
-    description:
-      name: json_intl_gen
-      sha256: "9777bba5e2e4a656ec94e1035e4a845d5ffd3cc85ef4950b2c68b131ab19c6aa"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   json_serializable:
     dependency: "direct dev"
     description:
@@ -485,6 +469,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  qr_code_scanner:
+    dependency: "direct main"
+    description:
+      name: qr_code_scanner
+      sha256: f23b68d893505a424f0bd2e324ebea71ed88465d572d26bb8d2e78a4749591fd
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -557,14 +549,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  simple_mustache:
-    dependency: transitive
-    description:
-      name: simple_mustache
-      sha256: f9e9211586ba32dd6be9967c408c275b8c3493734836c8a0057c9f509a448fce
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   sky_engine:
     dependency: transitive
     description: flutter

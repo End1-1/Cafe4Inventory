@@ -6,10 +6,10 @@ import 'package:cafe4_inventory/utils/http_query.dart';
 import 'package:flutter/material.dart';
 
 class BaseItemsScreen extends AppScreen {
-  final model = BaseItemsModel();
 
-  BaseItemsScreen() {
+  BaseItemsScreen({super.key, String itemQr = ''}) : super(model: BaseItemsModel()) {
     model.init();
+    (model as BaseItemsModel).itemQr = itemQr;
   }
 
   @override
@@ -41,13 +41,7 @@ class BaseItemsScreen extends AppScreen {
                         children: [for (final bi in snapshot.data) ...[
                       Row(children: [
                         Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), width: 80, child: Text(bi.finvnumcode),),
-                        InkWell(onTap:(){
-
-                        },
-                          onLongPress: (){
-
-                          },
-                          child: Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), width: 50, child: Text(bi.fdepart),),),
+                        Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), width: 50, child: Text(bi.fdepart),),
                         Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), width: 220, child: Text(bi.fcaption),),
                         Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), width: 50, child: Text("${bi.qty()}"),),
                       ],),

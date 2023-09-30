@@ -15,11 +15,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   intl: ^0.18.0
   shared_preferences: ^2.2.1
-  json_intl: ^3.0.1
-  json_intl_gen: ^3.0.0
   flutter_localizations:
     sdk: flutter
   http: ^1.1.0
+  qr_code_scanner: ^1.0.1
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   flutter_test:
@@ -38,4 +39,3 @@ flutter:
   assets:
     - assets/
     - assets/icons/
-    - assets/intl/

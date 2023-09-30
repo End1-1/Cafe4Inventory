@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cafe4_inventory/utils/prefs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,11 +20,20 @@ class HttpQuery {
   static const rListStore = 2;
   static const rGetBaseItems = 3;
   static const rAmtStorageList = 4;
+  static const rAsStorageList = 5;
+  static const rGetStorageItems = 6;
+  static const rOpenInventoryDoc = 7;
+  static const rUpdateInvDocItem = 8;
+  static const rGetGoodsQrAndWeight = 9;
+  static const rGetGoodsNames = 10;
 
   Future<Map<String, dynamic>> request(Map<String, Object?> inData) async {
     Map<String, Object?> outData = {};
+    inData['workerDb'] = prefs.fbDb();
     String strBody = jsonEncode(inData);
-    print('request: $strBody');
+    if (kDebugMode) {
+      print('request: $strBody');
+    }
     try {
       var response = await http
           .post(Uri.https('$server:$port', '/Cafe4Inventory'),

@@ -4,12 +4,12 @@ import 'package:cafe4_inventory/structs/struct_storage.dart';
 import 'package:cafe4_inventory/utils/http_query.dart';
 import 'package:cafe4_inventory/utils/squre_button.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:json_intl/json_intl.dart';
 
 class CreateDocScreen extends StatefulWidget {
+  const CreateDocScreen({super.key});
+
   @override
   State<StatefulWidget> createState() => _CreateDocScreen();
 }
@@ -29,7 +29,7 @@ class _CreateDocScreen extends State<CreateDocScreen> {
         child: Column(children: [
           Row(
             children: [
-              Text(context.tr(#date)),
+              Text('Ամսաթիվ'),
             ],
           ),
           Row(
@@ -94,7 +94,7 @@ class _CreateDocScreen extends State<CreateDocScreen> {
           const Divider(),
           Row(
             children: [
-              Text(context.tr(#cafe)),
+              Text('Սրճարան'),
             ],
           ),
           Row(
@@ -107,7 +107,7 @@ class _CreateDocScreen extends State<CreateDocScreen> {
               const SizedBox(width: 10),
               squareImageButton(
                     () {
-                  DlgIndex().getData(context, context.tr(#cafe), HttpQuery.rListCafe).then((value) {
+                  DlgIndex().getData(context, 'Սրճարան', HttpQuery.rListCafe).then((value) {
                     if (value != null) {
                       cafe = value;
                       cafeController.text = cafe!.name;
@@ -122,7 +122,7 @@ class _CreateDocScreen extends State<CreateDocScreen> {
           const Divider(),
           Row(
             children: [
-              Text(context.tr(#storage)),
+              Text('Պահեստ'),
             ],
           ),
           Row(
@@ -135,7 +135,7 @@ class _CreateDocScreen extends State<CreateDocScreen> {
               const SizedBox(width: 10),
               squareImageButton(
                 () {
-                  DlgIndex().getData(context, context.tr(#storage), HttpQuery.rListStore).then((value) {
+                  DlgIndex().getData(context, 'Պահեստ', HttpQuery.rListStore).then((value) {
     if (value != null) {
       storage = value;
       storeController.text = storage!.name;

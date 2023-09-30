@@ -2,7 +2,9 @@ import 'package:cafe4_inventory/screens/app/model.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppScreen extends StatelessWidget {
-  late final AppModel model;
+  final AppModel model;
+
+  const AppScreen({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +43,9 @@ abstract class AppScreen extends StatelessWidget {
     return const Align(
       alignment: Alignment.center,
       child: SizedBox(
-        child: CircularProgressIndicator(),
         height: 30,
         width: 30,
+        child: CircularProgressIndicator(),
       ),
     );
   }

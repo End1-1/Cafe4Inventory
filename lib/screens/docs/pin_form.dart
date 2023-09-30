@@ -1,10 +1,10 @@
 import 'package:cafe4_inventory/utils/squre_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:json_intl/json_intl.dart';
 
 class PinForm extends StatelessWidget {
   static final TextEditingController _pinController = TextEditingController();
+
+  const PinForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class PinForm extends StatelessWidget {
               child: SizedBox(
                   width: 72 * 3,
                   child: TextFormField(
-                    decoration: InputDecoration(hintText: context.tr(#enterPinCode)),
+                    decoration: InputDecoration(hintText: 'Պին կոդ'),
                     obscureText: true,
                     controller: _pinController,
                     textAlign: TextAlign.center,
