@@ -13,7 +13,9 @@ class DlgIndex {
 
   Future<dynamic> getData(
       BuildContext context, String title, int request) async {
-    model.request(request, '');
+    if (request != HttpQuery.rGetGoodsNames) {
+      model.request(request, '');
+    }
     return await showDialog(
         context: context,
         builder: (builder) {
@@ -37,14 +39,19 @@ class DlgIndex {
                       Divider(),
                       Row(
                         children: [
-                          Expanded(child: TextFormField(
+                          Expanded(
+                              child: TextFormField(
                             onChanged: (s) {
-
+                              if (s.length > 1) {
+                                model.request(request, s);
+                              }
                             },
                           ))
                         ],
                       ),
-                      const SizedBox(height: 5,),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       Expanded(
                           child: StreamBuilder(
                               stream: model.streamController.stream,
@@ -197,17 +204,17 @@ class DlgIndex {
         children: [
           Expanded(
               child: InkWell(
-                onTap: () {
-                  Navigator.pop(context, ss);
-                },
-                child: Container(
-                    margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
-                    child: Text(
-                      ss.name,
-                      style: nameStyle,
-                      overflow: TextOverflow.ellipsis,
-                    )),
-              ))
+            onTap: () {
+              Navigator.pop(context, ss);
+            },
+            child: Container(
+                margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
+                child: Text(
+                  ss.name,
+                  style: nameStyle,
+                  overflow: TextOverflow.ellipsis,
+                )),
+          ))
         ],
       ));
     }

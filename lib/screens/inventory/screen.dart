@@ -7,6 +7,7 @@ import 'package:cafe4_inventory/structs/struct_inv_item.dart';
 import 'package:flutter/material.dart';
 
 class InventoryDocScreen extends AppScreen {
+
   InventoryDocScreen(int docid, {super.key})
       : super(model: InventoryDocModel()) {
     (model as InventoryDocModel).docid = docid;
@@ -56,6 +57,7 @@ class InventoryDocScreen extends AppScreen {
                         child: Container(
                             width: 510,
                             child: ListView.builder(
+                              controller: (model as InventoryDocModel).scrollController,
                                 itemCount: snapshot.data.length,
                                 shrinkWrap: true,
                                 itemBuilder: (itemBuilder, index) {
@@ -126,7 +128,7 @@ class InventoryDocScreen extends AppScreen {
       if (value == null) {
         return;
       }
-      (model as InventoryDocModel).updateInvItem(s.copyWith(qty: value));
+      (model as InventoryDocModel).updateInvItem(s.copyWith(qty: value - s.tara));
     });
   }
 }

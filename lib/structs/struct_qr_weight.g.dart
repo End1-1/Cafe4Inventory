@@ -12,6 +12,7 @@ _$_StructQrWeight _$$_StructQrWeightFromJson(Map<String, dynamic> json) =>
       goods_id: json['goods_id'] as int,
       name: json['name'] as String,
       qr: json['qr'] as String,
+      comment: json['comment'] as String,
       qty: (json['qty'] as num).toDouble(),
     );
 
@@ -21,5 +22,6 @@ Map<String, dynamic> _$$_StructQrWeightToJson(_$_StructQrWeight instance) =>
       'goods_id': instance.goods_id,
       'name': instance.name,
       'qr': instance.qr,
+      'comment': instance.comment,
       'qty': instance.qty,
     };

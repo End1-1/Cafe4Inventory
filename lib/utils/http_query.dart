@@ -26,6 +26,8 @@ class HttpQuery {
   static const rUpdateInvDocItem = 8;
   static const rGetGoodsQrAndWeight = 9;
   static const rGetGoodsNames = 10;
+  static const rSaveGoodsQrName = 11;
+  static const rGetConfig = 12;
 
   Future<Map<String, dynamic>> request(Map<String, Object?> inData) async {
     Map<String, Object?> outData = {};

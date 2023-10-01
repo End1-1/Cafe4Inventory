@@ -3,6 +3,7 @@ import 'package:cafe4_inventory/screens/app/model.dart';
 import 'package:cafe4_inventory/screens/qr/screen.dart';
 import 'package:cafe4_inventory/screens/qr_weight/dlg_edit.dart';
 import 'package:cafe4_inventory/screens/qr_weight/model.dart';
+import 'package:cafe4_inventory/structs/struct_qr_weight.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -34,7 +35,9 @@ class QrWeightScreen extends AppScreen {
                     if (value == null) {
                       return;
                     }
-                    Navigator.push(context, MaterialPageRoute(builder: (builder) => EditQrForm(model: model, qr: value.code)));
+                    Navigator.push(context, MaterialPageRoute(builder: (builder) => EditQrForm(model: model, qr: value.code))).then((value) {
+                      model.refresh();
+                    });
                   });
                 }, child: Container(
                     margin: const EdgeInsets.all(3),
@@ -45,6 +48,23 @@ class QrWeightScreen extends AppScreen {
               (model as QrWeightModel).filter(s);
             },
           ),
+          const SizedBox(height: 20),
+          Expanded(child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: snapshot.data.length,
+              itemBuilder: (itemBuilder, index) {
+              final StructQrWeight sq = snapshot.data[index];
+              return InkWell(onTap:(){
+                Navigator.push(context, MaterialPageRoute(builder: (builder) => EditQrForm(model: model, qr: sq.qr))).then((value) {
+                  model.refresh();
+                });
+              }, child: Row(
+                children: [
+                  Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), width: 200, child: Text(sq.name),),
+                  Container(margin: const EdgeInsets.fromLTRB(5, 5, 5, 10), width: 80, child: Text('${sq.qty}'),)
+                ],
+              ));
+          }))
         ],
       );
     });

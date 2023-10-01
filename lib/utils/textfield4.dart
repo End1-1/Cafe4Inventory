@@ -22,6 +22,7 @@ Widget textFieldNum4(String label, TextEditingController? controller,
         labelText: label),
     controller: (controller ?? TextEditingController())..text = value,
     readOnly: controller == null,
+    keyboardType: TextInputType.number,
     minLines: 1,
     maxLines: 10,
   );

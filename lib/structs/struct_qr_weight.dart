@@ -11,6 +11,7 @@ class StructQrWeight with _$StructQrWeight {
       required int goods_id,
       required String name,
         required String qr,
+        required String comment,
       required double qty}) = _StructQrWeight;
 
   factory StructQrWeight.fromJson(Map<String, dynamic> json) =>

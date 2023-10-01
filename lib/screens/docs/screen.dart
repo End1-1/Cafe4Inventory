@@ -10,6 +10,7 @@ import 'package:cafe4_inventory/screens/qr_weight/model.dart';
 import 'package:cafe4_inventory/screens/qr_weight/screen.dart';
 import 'package:cafe4_inventory/screens/store_items/screen.dart';
 import 'package:cafe4_inventory/utils/http_query.dart';
+import 'package:cafe4_inventory/utils/prefs.dart';
 import 'package:flutter/material.dart';
 
 class DocsScreen extends AppScreen {
@@ -22,8 +23,10 @@ class DocsScreen extends AppScreen {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 30,),
+
           //BASE ITEMS
+          if (prefs.string('baseitems') == '1')...[
+          const SizedBox(height: 30,),
           InkWell(onTap:(){
             Navigator.push(context, MaterialPageRoute(builder: (builder) => BaseItemsScreen()));
           }, child: Row(
@@ -36,7 +39,6 @@ class DocsScreen extends AppScreen {
 
           //Search base item
           const SizedBox(height: 10,),
-          //BASE ITEMS
           InkWell(onTap:(){
             _searchBaseItemByQr(context);
           }, child: Row(
@@ -45,10 +47,11 @@ class DocsScreen extends AppScreen {
                 const SizedBox(width: 10,),
                 const Text('Փնտրել հիմնական միջոց')
               ]),
-          ),
+          ),],
 
           // STORAGE
           const SizedBox(height: 10,),
+          if (prefs.string('storeitem') == '1')...[
           InkWell(onTap:(){
             Navigator.push(context, MaterialPageRoute(builder: (builder) => StoreItemsScreen()));
           }, child: Row(
@@ -61,7 +64,6 @@ class DocsScreen extends AppScreen {
 
           //Search store item
           const SizedBox(height: 10,),
-          //BASE ITEMS
           InkWell(onTap:(){
             _searchStoreItemByQr(context);
           }, child: Row(
@@ -70,11 +72,11 @@ class DocsScreen extends AppScreen {
                 const SizedBox(width: 10,),
                 const Text('Փնտրել պահեստում')
               ]),
-          ),
+          ),],
 
           //Search store item
+          if (prefs.string('inventory') == '1') ... [
           const SizedBox(height: 10,),
-          //BASE ITEMS
           InkWell(onTap:(){
             _inventory(context);
           }, child: Row(
@@ -83,11 +85,11 @@ class DocsScreen extends AppScreen {
                 const SizedBox(width: 10,),
                 const Text('Գույքագրում')
               ]),
-          ),
+          ),],
 
           //Edit qr and bottle weights
+          if (prefs.string('editqr') == '1') ... [
           const SizedBox(height: 10,),
-          //BASE ITEMS
           InkWell(onTap:(){
             Navigator.push(context, MaterialPageRoute(builder: (builder) => QrWeightScreen()));
           }, child: Row(
@@ -96,7 +98,7 @@ class DocsScreen extends AppScreen {
                 const SizedBox(width: 10,),
                 const Text('Տարաների քաշերը')
               ]),
-          ),
+          ),],
     ]);
   }
 

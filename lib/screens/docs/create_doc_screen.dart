@@ -2,6 +2,7 @@ import 'package:cafe4_inventory/screens/indexes/dlg_index.dart';
 import 'package:cafe4_inventory/structs/struct_cafe.dart';
 import 'package:cafe4_inventory/structs/struct_storage.dart';
 import 'package:cafe4_inventory/utils/http_query.dart';
+import 'package:cafe4_inventory/utils/prefs.dart';
 import 'package:cafe4_inventory/utils/squre_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -101,13 +102,15 @@ class _CreateDocScreen extends State<CreateDocScreen> {
             children: [
               Expanded(
                   child: TextField(
-                    controller: cafeController,
-                    readOnly: true,
-                  )),
+                controller: cafeController,
+                readOnly: true,
+              )),
               const SizedBox(width: 10),
               squareImageButton(
-                    () {
-                  DlgIndex().getData(context, 'Սրճարան', HttpQuery.rListCafe).then((value) {
+                () {
+                  DlgIndex()
+                      .getData(context, 'Սրճարան', HttpQuery.rListCafe)
+                      .then((value) {
                     if (value != null) {
                       cafe = value;
                       cafeController.text = cafe!.name;
@@ -135,12 +138,13 @@ class _CreateDocScreen extends State<CreateDocScreen> {
               const SizedBox(width: 10),
               squareImageButton(
                 () {
-                  DlgIndex().getData(context, 'Պահեստ', HttpQuery.rListStore).then((value) {
-    if (value != null) {
-      storage = value;
-      storeController.text = storage!.name;
-    }
-
+                  DlgIndex()
+                      .getData(context, 'Պահեստ', HttpQuery.rListStore)
+                      .then((value) {
+                    if (value != null) {
+                      storage = value;
+                      storeController.text = storage!.name;
+                    }
                   });
                 },
                 'assets/icons/edit.png',

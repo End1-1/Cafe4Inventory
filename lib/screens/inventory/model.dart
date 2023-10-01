@@ -5,11 +5,13 @@ import 'package:cafe4_inventory/structs/struct_inv_item.dart';
 import 'package:cafe4_inventory/structs/struct_storage.dart';
 import 'package:cafe4_inventory/utils/http_query.dart';
 import 'package:cafe4_inventory/utils/prefs.dart';
+import 'package:flutter/cupertino.dart';
 
 class InventoryDocModel extends AppModel {
   int docid = 0;
   StructStorage store = StructStorage(id: '2', name: 'Բար');
   final List<StructInvItem> items = [];
+  final scrollController = ScrollController();
 
   final rowController = StreamController.broadcast();
 
@@ -31,7 +33,7 @@ class InventoryDocModel extends AppModel {
       return;
     }
     l.add(i);
-    controller.add(i);
+    controller.add([i]);
   }
 
   Future<void> updateInvItem(StructInvItem si)  async {

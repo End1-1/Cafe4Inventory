@@ -24,6 +24,7 @@ mixin _$StructQrWeight {
   int get goods_id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get qr => throw _privateConstructorUsedError;
+  String get comment => throw _privateConstructorUsedError;
   double get qty => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +39,13 @@ abstract class $StructQrWeightCopyWith<$Res> {
           StructQrWeight value, $Res Function(StructQrWeight) then) =
       _$StructQrWeightCopyWithImpl<$Res, StructQrWeight>;
   @useResult
-  $Res call({int id, int goods_id, String name, String qr, double qty});
+  $Res call(
+      {int id,
+      int goods_id,
+      String name,
+      String qr,
+      String comment,
+      double qty});
 }
 
 /// @nodoc
@@ -58,6 +65,7 @@ class _$StructQrWeightCopyWithImpl<$Res, $Val extends StructQrWeight>
     Object? goods_id = null,
     Object? name = null,
     Object? qr = null,
+    Object? comment = null,
     Object? qty = null,
   }) {
     return _then(_value.copyWith(
@@ -77,6 +85,10 @@ class _$StructQrWeightCopyWithImpl<$Res, $Val extends StructQrWeight>
           ? _value.qr
           : qr // ignore: cast_nullable_to_non_nullable
               as String,
+      comment: null == comment
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
       qty: null == qty
           ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
@@ -93,7 +105,13 @@ abstract class _$$_StructQrWeightCopyWith<$Res>
       __$$_StructQrWeightCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, int goods_id, String name, String qr, double qty});
+  $Res call(
+      {int id,
+      int goods_id,
+      String name,
+      String qr,
+      String comment,
+      double qty});
 }
 
 /// @nodoc
@@ -111,6 +129,7 @@ class __$$_StructQrWeightCopyWithImpl<$Res>
     Object? goods_id = null,
     Object? name = null,
     Object? qr = null,
+    Object? comment = null,
     Object? qty = null,
   }) {
     return _then(_$_StructQrWeight(
@@ -130,6 +149,10 @@ class __$$_StructQrWeightCopyWithImpl<$Res>
           ? _value.qr
           : qr // ignore: cast_nullable_to_non_nullable
               as String,
+      comment: null == comment
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
       qty: null == qty
           ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
@@ -146,6 +169,7 @@ class _$_StructQrWeight implements _StructQrWeight {
       required this.goods_id,
       required this.name,
       required this.qr,
+      required this.comment,
       required this.qty});
 
   factory _$_StructQrWeight.fromJson(Map<String, dynamic> json) =>
@@ -160,11 +184,13 @@ class _$_StructQrWeight implements _StructQrWeight {
   @override
   final String qr;
   @override
+  final String comment;
+  @override
   final double qty;
 
   @override
   String toString() {
-    return 'StructQrWeight(id: $id, goods_id: $goods_id, name: $name, qr: $qr, qty: $qty)';
+    return 'StructQrWeight(id: $id, goods_id: $goods_id, name: $name, qr: $qr, comment: $comment, qty: $qty)';
   }
 
   @override
@@ -177,12 +203,14 @@ class _$_StructQrWeight implements _StructQrWeight {
                 other.goods_id == goods_id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.qr, qr) || other.qr == qr) &&
+            (identical(other.comment, comment) || other.comment == comment) &&
             (identical(other.qty, qty) || other.qty == qty));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, goods_id, name, qr, qty);
+  int get hashCode =>
+      Object.hash(runtimeType, id, goods_id, name, qr, comment, qty);
 
   @JsonKey(ignore: true)
   @override
@@ -204,6 +232,7 @@ abstract class _StructQrWeight implements StructQrWeight {
       required final int goods_id,
       required final String name,
       required final String qr,
+      required final String comment,
       required final double qty}) = _$_StructQrWeight;
 
   factory _StructQrWeight.fromJson(Map<String, dynamic> json) =
@@ -217,6 +246,8 @@ abstract class _StructQrWeight implements StructQrWeight {
   String get name;
   @override
   String get qr;
+  @override
+  String get comment;
   @override
   double get qty;
   @override

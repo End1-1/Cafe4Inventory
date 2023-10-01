@@ -20,9 +20,10 @@ class QrWeightModel extends AppModel {
         return;
       }
       if (value['found'] == 1) {
+        qrController.add(StructQrWeight.fromJson(value[HttpQuery.kData][0]));
         return;
       }
-      qrController.add(StructQrWeight(id: 0, goods_id: 0, name: '', qr: qr, qty: 0));
+      qrController.add(StructQrWeight(id: 0, goods_id: 0, name: '', qr: qr, qty: 0, comment: ''));
     });
   }
 
