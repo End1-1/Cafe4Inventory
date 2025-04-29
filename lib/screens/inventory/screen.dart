@@ -1,5 +1,6 @@
 import 'package:cafe4_inventory/screens/app/app_screen.dart';
 import 'package:cafe4_inventory/screens/app/model.dart';
+import 'package:cafe4_inventory/screens/barcode/barcode_reader.dart';
 import 'package:cafe4_inventory/screens/dlg_qty/dlg_qty.dart';
 import 'package:cafe4_inventory/screens/inventory/model.dart';
 import 'package:cafe4_inventory/structs/struct_inv_item.dart';
@@ -34,18 +35,7 @@ class InventoryDocScreen extends AppScreen {
                           width: 10,
                           height: 10,
                           child: Image.asset('assets/icons/search.png')),
-                      suffixIcon: InkWell(onTap:(){
-                        // Navigator.push(context, MaterialPageRoute(builder: (builder) => QRReader())).then((value) {
-                        //   if (value == null) {
-                        //     return;
-                        //   }
-                        //   (model as InventoryDocModel).filterQR(value.code);
-                        // });
-                      }, child: Container(
-                          margin: const EdgeInsets.all(3),
-                          width: 10,
-                          height: 10,
-                          child: Image.asset('assets/icons/qr.png')))),
+                      ),
                   onChanged: (s) {
                     (model as InventoryDocModel).filter(s);
                   },
@@ -102,7 +92,21 @@ class InventoryDocScreen extends AppScreen {
                                                   ],
                                                 ));
                                           }));
-                                }))))
+                                })))),
+                Row(children: [
+                  Expanded(child: Container()),
+                  InkWell(onTap:(){
+                    Navigator.push(context, MaterialPageRoute(builder: (builder) => BarcodeScannerWithOverlay())).then((value) {
+                      if (value == null) {
+                        return;
+                      }
+                      (model as InventoryDocModel).filterQR(value.code);
+                    });
+                  }, child: Container(
+                      margin: const EdgeInsets.all(3),
+                      child: Image.asset('assets/icons/qr.png', height: 30,))),
+                  const SizedBox(width: 10)
+                ])
               ]);
         });
   }

@@ -3,9 +3,7 @@ import 'package:cafe4_inventory/screens/app/model.dart';
 import 'package:cafe4_inventory/screens/qr_weight/dlg_edit.dart';
 import 'package:cafe4_inventory/screens/qr_weight/model.dart';
 import 'package:cafe4_inventory/structs/struct_qr_weight.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class QrWeightScreen extends AppScreen {
   QrWeightScreen({super.key}) : super(model: QrWeightModel());
