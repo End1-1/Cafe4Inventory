@@ -1,6 +1,5 @@
 import 'package:cafe4_inventory/screens/app/app_screen.dart';
 import 'package:cafe4_inventory/screens/app/model.dart';
-import 'package:cafe4_inventory/screens/qr/screen.dart';
 import 'package:cafe4_inventory/screens/qr_weight/dlg_edit.dart';
 import 'package:cafe4_inventory/screens/qr_weight/model.dart';
 import 'package:cafe4_inventory/structs/struct_qr_weight.dart';
@@ -31,14 +30,14 @@ class QrWeightScreen extends AppScreen {
                     height: 10,
                     child: Image.asset('assets/icons/search.png')),
                 suffixIcon: InkWell(onTap:(){
-                  Navigator.push(context, MaterialPageRoute(builder: (builder) => QRReader())).then((value) {
-                    if (value == null) {
-                      return;
-                    }
-                    Navigator.push(context, MaterialPageRoute(builder: (builder) => EditQrForm(model: model, qr: value.code))).then((value) {
-                      model.refresh();
-                    });
-                  });
+                  // Navigator.push(context, MaterialPageRoute(builder: (builder) => QRReader())).then((value) {
+                  //   if (value == null) {
+                  //     return;
+                  //   }
+                  //   Navigator.push(context, MaterialPageRoute(builder: (builder) => EditQrForm(model: model, qr: value.code))).then((value) {
+                  //     model.refresh();
+                  //   });
+                  // });
                 }, child: Container(
                     margin: const EdgeInsets.all(3),
                     width: 10,

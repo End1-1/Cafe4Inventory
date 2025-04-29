@@ -2,7 +2,6 @@ import 'package:cafe4_inventory/screens/app/app_screen.dart';
 import 'package:cafe4_inventory/screens/app/model.dart';
 import 'package:cafe4_inventory/screens/dlg_qty/dlg_qty.dart';
 import 'package:cafe4_inventory/screens/inventory/model.dart';
-import 'package:cafe4_inventory/screens/qr/screen.dart';
 import 'package:cafe4_inventory/structs/struct_inv_item.dart';
 import 'package:flutter/material.dart';
 
@@ -36,12 +35,12 @@ class InventoryDocScreen extends AppScreen {
                           height: 10,
                           child: Image.asset('assets/icons/search.png')),
                       suffixIcon: InkWell(onTap:(){
-                        Navigator.push(context, MaterialPageRoute(builder: (builder) => QRReader())).then((value) {
-                          if (value == null) {
-                            return;
-                          }
-                          (model as InventoryDocModel).filterQR(value.code);
-                        });
+                        // Navigator.push(context, MaterialPageRoute(builder: (builder) => QRReader())).then((value) {
+                        //   if (value == null) {
+                        //     return;
+                        //   }
+                        //   (model as InventoryDocModel).filterQR(value.code);
+                        // });
                       }, child: Container(
                           margin: const EdgeInsets.all(3),
                           width: 10,

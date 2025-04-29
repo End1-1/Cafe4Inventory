@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:cafe4_inventory/utils/app_websocket.dart';
 import 'package:cafe4_inventory/utils/http_query.dart';
 
 class HttpLoading {
@@ -33,11 +35,15 @@ class AppModel {
 
   Future<dynamic> request(int request, Map<String, dynamic> data) async {
     controller.add(HttpLoading());
-    final result = await HttpQuery().request({'request': request}..addAll(data));
-    if (result[HttpQuery.kStatus] != HttpQuery.hrOk) {
-      controller.add(HttpError(result[HttpQuery.kData].toString()));
-      return;
-    }
-    processData(HttpData(result[HttpQuery.kData]).data);
+    data['request'] = request;
+    AppWebSocket.instance.sendMessage(jsonEncode(data), (result){
+
+      if (result[HttpQuery.kStatus] != HttpQuery.hrOk) {
+        controller.add(HttpError(result[HttpQuery.kData].toString()));
+        return;
+      }
+      processData(HttpData(result[HttpQuery.kData]).data);
+    });
+
   }
 }

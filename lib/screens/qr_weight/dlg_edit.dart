@@ -98,15 +98,15 @@ class EditQrForm extends AppScreen {
       Expanded(child: Text('QR և քաշ խմբագրիչ')),
       InkWell(
           onTap: () {
-            sq = sq!.copyWith(qty: double.tryParse(weightController.text) ?? 0);
-            HttpQuery().request({"request": HttpQuery.rSaveGoodsQrName}..addAll(sq!.toJson())).then((value) {
-              if (value[HttpQuery.kStatus] != HttpQuery.hrOk) {
-                appDialog(context, value[HttpQuery.kData]);
-                return;
-              }
-              sq = StructQrWeight.fromJson(value);
-              (model as QrWeightModel).qrController.add(sq);
-            });
+            // sq = sq!.copyWith(qty: double.tryParse(weightController.text) ?? 0);
+            // HttpQuery().request({"request": HttpQuery.rSaveGoodsQrName}..addAll(sq!.toJson())).then((value) {
+            //   if (value[HttpQuery.kStatus] != HttpQuery.hrOk) {
+            //     appDialog(context, value[HttpQuery.kData]);
+            //     return;
+            //   }
+            //   sq = StructQrWeight.fromJson(value);
+            //   (model as QrWeightModel).qrController.add(sq);
+            // });
           },
           child: Image.asset('assets/icons/save.png', height: 40)),
     ];

@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:cafe4_inventory/screens/app/model.dart';
 import 'package:cafe4_inventory/structs/struct_inv_item.dart';
 import 'package:cafe4_inventory/structs/struct_storage.dart';
+import 'package:cafe4_inventory/utils/app_websocket.dart';
 import 'package:cafe4_inventory/utils/http_query.dart';
 import 'package:cafe4_inventory/utils/prefs.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,18 +39,21 @@ class InventoryDocModel extends AppModel {
   }
 
   Future<void> updateInvItem(StructInvItem si)  async {
-    final result = await HttpQuery().request({"request": HttpQuery.rUpdateInvDocItem}..addAll(si.toJson()));
-    if (result[HttpQuery.kStatus] != HttpQuery.hrOk) {
-      return;
-    }
-    StructInvItem i = StructInvItem.fromJson(result[HttpQuery.kData]);
-    StructInvItem oldItem = items.firstWhere((element) => element.id == i.id);
-    if (oldItem == null) {
-      return;
-    }
-    int index = items.indexOf(oldItem);
-    items[index] = i;
-    controller.add(items);
+    final request = <String, dynamic>{"request": HttpQuery.rUpdateInvDocItem}..addAll(si.toJson());
+    AppWebSocket.instance.sendMessage(jsonEncode(request), (result) {
+      if (result[HttpQuery.kStatus] != HttpQuery.hrOk) {
+        return;
+      }
+      StructInvItem i = StructInvItem.fromJson(result[HttpQuery.kData]);
+      StructInvItem oldItem = items.firstWhere((element) => element.id == i.id);
+      if (oldItem == null) {
+        return;
+      }
+      int index = items.indexOf(oldItem);
+      items[index] = i;
+      controller.add(items);
+    });
+
   }
 
   @override

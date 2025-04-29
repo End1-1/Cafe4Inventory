@@ -13,18 +13,18 @@ class QrWeightModel extends AppModel {
   void filter(String s) {}
 
   void getInfoByQr(String qr) {
-    qrController.add(null);
-    HttpQuery().request({'request': HttpQuery.rGetGoodsQrAndWeight, 'qr': qr, 'workerDb': prefs.fbDb()}).then((value) {
-      if (value[HttpQuery.kStatus] != HttpQuery.hrOk) {
-        qrController.add(HttpError(value[HttpQuery.kData]));
-        return;
-      }
-      if (value['found'] == 1) {
-        qrController.add(StructQrWeight.fromJson(value[HttpQuery.kData][0]));
-        return;
-      }
-      qrController.add(StructQrWeight(id: 0, goods_id: 0, name: '', qr: qr, qty: 0, comment: ''));
-    });
+    // qrController.add(null);
+    // HttpQuery().request({'request': HttpQuery.rGetGoodsQrAndWeight, 'qr': qr, 'workerDb': prefs.fbDb()}).then((value) {
+    //   if (value[HttpQuery.kStatus] != HttpQuery.hrOk) {
+    //     qrController.add(HttpError(value[HttpQuery.kData]));
+    //     return;
+    //   }
+    //   if (value['found'] == 1) {
+    //     qrController.add(StructQrWeight.fromJson(value[HttpQuery.kData][0]));
+    //     return;
+    //   }
+    //   qrController.add(StructQrWeight(id: 0, goods_id: 0, name: '', qr: qr, qty: 0, comment: ''));
+    // });
   }
 
   @override

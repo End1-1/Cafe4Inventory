@@ -1,25 +1,18 @@
 import 'dart:io';
 
 import 'package:cafe4_inventory/screens/docs/screen.dart';
+import 'package:cafe4_inventory/utils/app_websocket.dart';
 import 'package:cafe4_inventory/utils/http_overrides.dart';
-import 'package:cafe4_inventory/utils/http_query.dart';
 import 'package:cafe4_inventory/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
-  final config = await HttpQuery().request(
-      {'request': HttpQuery.rGetConfig, 'config': prefs.string(pkConfig)});
-  if (config[HttpQuery.kStatus] == HttpQuery.hrOk) {
-    for (final m in config[HttpQuery.kData]) {
-      (m as Map).forEach((key, value) {
-        prefs.setString(key, value);
-      });
-    }
+  if (!AppWebSocket.initialized) {
+    AppWebSocket.instance = AppWebSocket();
   }
   runApp(const MyApp());
 }

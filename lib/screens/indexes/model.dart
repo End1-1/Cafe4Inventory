@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:cafe4_inventory/utils/app_websocket.dart';
 import 'package:cafe4_inventory/utils/http_query.dart';
 
 class DlgIndexModel {
@@ -11,12 +13,14 @@ class DlgIndexModel {
     //   streamController.add(cache[request]);
     //   return;
     // }
-    final result = await HttpQuery().request({'request': request, 'filter': filter});
-    if (result[HttpQuery.kStatus] != HttpQuery.hrOk) {
-      streamController.add(result[HttpQuery.kData].toString());
-      return;
-    }
-    cache[request] = result;
-    streamController.add(result);
+    AppWebSocket.instance.sendMessage(jsonEncode({'request': request, 'filter': filter}), (result) {
+      if (result[HttpQuery.kStatus] != HttpQuery.hrOk) {
+        streamController.add(result[HttpQuery.kData].toString());
+        return;
+      }
+      cache[request] = result;
+      streamController.add(result);
+    });
+
   }
 }

@@ -5,8 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class HttpQuery {
-  static const server = "195.191.155.164";
-  //static const server = "192.168.88.42";
   static const port = 10002;
   static const hrFail = 0;
   static const hrOk = 1;
@@ -28,8 +26,10 @@ class HttpQuery {
   static const rGetGoodsNames = 10;
   static const rSaveGoodsQrName = 11;
   static const rGetConfig = 12;
+  static const rGetAragamash = 13;
+  static const rGetAllTogether = 14;
 
-  Future<Map<String, dynamic>> request(Map<String, Object?> inData) async {
+  Future<Map<String, dynamic>> requestOld(Map<String, Object?> inData) async {
     Map<String, Object?> outData = {};
     inData['workerDb'] = prefs.fbDb();
     String strBody = jsonEncode(inData);
@@ -38,7 +38,7 @@ class HttpQuery {
     }
     try {
       var response = await http
-          .post(Uri.https('$server:$port', '/Cafe4Inventory'),
+          .post(Uri.https('office.jazzve.am/ws', '/Cafe4Inventory'),
           headers: {
             'Content-Type': 'application/json',
             'Content-Length': '${utf8.encode(strBody).length}'
