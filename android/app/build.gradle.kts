@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.cafe4_inventory"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "29.0.13113456"
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

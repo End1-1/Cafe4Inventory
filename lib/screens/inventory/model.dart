@@ -14,7 +14,7 @@ class InventoryDocModel extends AppModel {
   StructStorage store = StructStorage(id: '2', name: 'Բար');
   final List<StructInvItem> items = [];
   final scrollController = ScrollController();
-
+  final filterController = TextEditingController();
   final rowController = StreamController.broadcast();
 
   void filter(String s) {
@@ -30,7 +30,11 @@ class InventoryDocModel extends AppModel {
 
   void filterQR(String s) {
     final List<StructInvItem> l = [];
-    StructInvItem i = items.firstWhere((element) => element.qr.split(';').contains(s), orElse: (){ return StructInvItem(id: 0, goods_id: 0, name: '', qty: 0, tara: 0, qr: '');});
+    StructInvItem i = items
+        .firstWhere((element) => element.qr.split(';').contains(s), orElse: () {
+      return StructInvItem(
+          id: 0, goods_id: 0, name: '', qty: 0, tara: 0, qr: '');
+    });
     if (i.id == 0) {
       return;
     }
@@ -38,22 +42,51 @@ class InventoryDocModel extends AppModel {
     controller.add([i]);
   }
 
-  Future<void> updateInvItem(StructInvItem si)  async {
-    final request = <String, dynamic>{"request": HttpQuery.rUpdateInvDocItem}..addAll(si.toJson());
+  StructInvItem? findItemByQR(String s) {
+    StructInvItem i = items
+        .firstWhere((element) => element.qr.split(';').any((e) => e.contains(s)), orElse: () {
+      return StructInvItem(
+          id: 0, goods_id: 0, name: '', qty: 0, tara: 0, qr: '');
+    });
+    if (i.id == 0) {
+      return null;
+    }
+    final qrs = i.qr.split(';');
+    for (final q in qrs) {
+      if (q.contains(s)) {
+        final qrst = q.split('=');
+        if (qrst.length == 2) {
+          return i.copyWith(tara: double.tryParse(qrst[1]) ?? 0);
+        }
+      }
+    }
+    return null;
+  }
+
+  StructInvItem itemOfId(StructInvItem item) {
+    return items.firstWhere((element) => element.id == item.id);
+  }
+
+  Future<void> updateInvItem(StructInvItem si) async {
+    final request = <String, dynamic>{"request": HttpQuery.rUpdateInvDocItem}
+      ..addAll(si.toJson());
     AppWebSocket.instance.sendMessage(jsonEncode(request), (result) {
       if (result[HttpQuery.kStatus] != HttpQuery.hrOk) {
         return;
       }
       StructInvItem i = StructInvItem.fromJson(result[HttpQuery.kData]);
-      StructInvItem oldItem = items.firstWhere((element) => element.id == i.id);
+      StructInvItem? oldItem =
+          items.firstWhere((element) => element.id == i.id);
       if (oldItem == null) {
         return;
       }
       int index = items.indexOf(oldItem);
       items[index] = i;
       controller.add(items);
+      if (filterController.text.isNotEmpty) {
+        filter(filterController.text);
+      }
     });
-
   }
 
   @override
@@ -68,6 +101,7 @@ class InventoryDocModel extends AppModel {
 
   @override
   void refresh() {
-    request(HttpQuery.rOpenInventoryDoc, {"docid": docid, 'workerDb': prefs.fbDb()});
+    request(HttpQuery.rOpenInventoryDoc,
+        {"docid": docid, 'workerDb': prefs.fbDb()});
   }
 }
